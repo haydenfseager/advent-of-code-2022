@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <climits>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ int main(){
     string line;
     while(getline(fin, line)){
         if(line.length() == 1){
+            sort(arr, arr+3);
             for(int i=0; i<3; i++){
                 if(arr[i] < curr_max){
                     arr[i] = curr_max;
@@ -27,9 +29,6 @@ int main(){
         ss >> input;
         curr_max += input;
     }
-    cout << "arr[0]= " << arr[0] << '\n';
-    cout << "arr[1]= " << arr[1] << '\n';
-    cout << "arr[2]= " << arr[2] << '\n';
     cout << "Max= " << arr[0] + arr[1] + arr[2] << endl;
     fin.close();
     return 0;
