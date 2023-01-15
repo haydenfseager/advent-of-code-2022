@@ -17,8 +17,6 @@ int main(){
     ifstream fin;
     fin.open("day3.txt");
     while(getline(fin, input)){
-        cout << "input= " << input << endl;
-        cout << "inputlength= " << input.length() << endl;
         length = input.length()-1;
         m1.clear();
         m2.clear();
@@ -42,9 +40,7 @@ int main(){
         }
         for(const auto &[key1, val1] : m1){
             for(const auto &[key2, val2] : m2){
-                printf("Key1= %c Key2= %c\n", key1, key2); 
                 if(key1 == key2){
-                    //cout << "\tval1= " << val1 << " val2= " << val2 << endl;
                     if(islower(key1)){
                         output += key1 - 'a' + 1;
                     }
