@@ -12,7 +12,7 @@ int main(){
     fin.open("day6.txt");
     getline(fin, line);
     stringstream ss(line);
-    for(int i=0, j=3; j<line.length(); i++, j++){
+    for(int i=0, j=13; j<line.length(); i++, j++){
         for(int k=i; k<=j; k++){
             if(s.count(line[k])){
                 break;
