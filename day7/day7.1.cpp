@@ -113,14 +113,11 @@ void runCode(){
             string command;
             ss >> command;
             if(command == "cd"){
-                cout << "execute cd" << endl;
                 string command2;
                 ss >> command2;
                 if(command2 == "/"){
-                    while(dir_stack.top().name != "/"){
-                        cout << "home while loop exe" << endl;
+                    while(dir_stack.top().get().name != "/"){
                         if(dir_stack.empty()){
-                            cout << "Error: dir_stack empty" << endl;
                             break;
                         }
                         dir_stack.pop();
@@ -131,62 +128,48 @@ void runCode(){
                     dir_stack.pop();
                 }
                 else{
-                    for(int i=0; i<dir_stack.top().folders.size(); i++){
-                        if(command2 == dir_stack.top().folders[i].name){
-                            dir_stack.push(dir_stack.top().folders[i]);
+                    for(int i=0; i<dir_stack.top().get().folders.size(); i++){
+                        if(command2 == dir_stack.top().get().folders[i].name){
+                            dir_stack.push(dir_stack.top().get().folders[i]);
                         }
                     }
                 }
             }
             else if(command == "ls"){
-                dir_stack.top().printContents();
+                dir_stack.top().get().printContents();
             }
         }
         else if(type == "dir"){
-            cout << "execute dir" << endl;
             string dir_name;
             ss >> dir_name;
-            dir_stack.top().addDirectory(dir_name);
+            dir_stack.top().get().addDirectory(dir_name);
         }
         else {
-            cout << "execute addfile" << endl;
             string filename;
             int size = stoi(type);
             ss >> filename;
-            dir_stack.top().addFile(filename, size);
+            dir_stack.top().get().addFile(filename, size);
         }
     }
-    while(!dir_stack.empty()){
-        cout << dir_stack.top().name << endl;
-        dir_stack.top().printContents();
-        if(dir_stack.top().name == "/"){
-            break;
-        }
+    while(dir_stack.top().get().name != "/"){
         dir_stack.pop();
     }
-    cout << dir_stack.top().name << endl;
-    dir_stack.top().printContents();
-    for(int i=0; i<dir_stack.top().folders.size(); i++){
-        dir_stack.top().folders[i].printContents();
+    int output = 0;
+    queue<Directory> q;
+    q.push(dir_stack.top().get());
+    while(!q.empty()){
+        auto curr_dir = q.front();
+        curr_dir.printContents();
+        q.pop();
+        int temp = BFS(curr_dir);
+        if(temp < 100000){
+            output += temp;
+        }
+        for(int i=0; i<curr_dir.folders.size(); i++){
+            q.push(curr_dir.folders[i]);
+        }
     }
-    //BFSprint(dir_stack.top());
-    //int output = 0;
-    //dir_stack.top().printContents();
-    //queue<Directory> q;
-    //q.push(dir_stack.top());
-    //while(!q.empty()){
-    //    auto curr_dir = q.front();
-    //    curr_dir.printContents();
-    //    q.pop();
-    //    int temp = BFS(curr_dir);
-    //    if(temp < 100000){
-    //        output += temp;
-    //    }
-    //    for(int i=0; i<curr_dir.folders.size(); i++){
-    //        q.push(curr_dir.folders[i]);
-    //    }
-    //}
-    //cout << "Output= " << output << endl;
+    cout << "Output= " << output << endl;
 }
 
 int main(){
