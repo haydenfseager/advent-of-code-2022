@@ -48,6 +48,7 @@ struct Directory {
         File temp = File(n, s);
         files.push_back(temp);
     }
+
     int files_size(){
         int output = 0;
         for(int i=0; i<files.size(); i++){
@@ -56,19 +57,6 @@ struct Directory {
         return output;
     }
 
-    void printContents(){
-        if(folders.size() == 0 && files.size() == 0){
-            cout << "Empty container" << endl;
-            return;
-        }
-        for(int i=0; i<folders.size(); i++){
-            cout << "\t" << folders[i].name << endl;
-        }
-        for(int i=0; i<files.size(); i++){
-            cout << "\t" << files[i].name << endl;
-        }
-        cout << endl;
-    }
 };
 
 int BFS(Directory d){
@@ -86,25 +74,13 @@ int BFS(Directory d){
     return output;
 }
 
-void BFSprint(Directory d){
-    queue<Directory> q;
-    q.push(d);
-    while(!q.empty()){
-        auto curr_dir = q.front();
-        q.pop();
-        curr_dir.printContents();
-        for(int i=0; i<curr_dir.folders.size(); i++){
-            q.push(curr_dir.folders[i]);
-        }
-    }
-}
-
 void runCode(){
+    string line, type;
+    ifstream fin;
     stack<reference_wrapper<Directory>> dir_stack;
     Directory home = Directory("/");
     dir_stack.push(ref(home));
-    string line, type;
-    ifstream fin;
+
     fin.open("day7.txt");
     while(getline(fin, line)){
         stringstream ss(line);
@@ -124,7 +100,6 @@ void runCode(){
                     }
                 }
                 else if(command2 == ".."){
-                    cout << "\tPopping Stack" << endl;
                     dir_stack.pop();
                 }
                 else{
@@ -173,13 +148,6 @@ void runCode(){
 }
 
 int main(){
-    //Directory test = Directory("/");
-    //test.addDirectory("the1");
-    //test.addFile("hello2345.txt", 150);
-    //test.folders[0].addFile("hello1", 100);
-    //test.printContents();
-    //test.folders[0].printContents();
-    //
     runCode();
     return 0;
 }
