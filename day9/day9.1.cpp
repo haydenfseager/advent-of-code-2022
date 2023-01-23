@@ -7,6 +7,7 @@ using namespace std;
 static int curr_cycle = 1;
 static int reg_val = 1;
 static map<int, int> m;
+static int arr[240];
 
 void addMoment(int cycle, int val){
     m.insert(make_pair(cycle, val));
