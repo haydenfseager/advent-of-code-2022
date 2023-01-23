@@ -16,7 +16,7 @@ void addMoment(int cycle, int val){
 int main(){
     ifstream fin;
     string line;
-    fin.open("day9.txt");
+    fin.open("day10.txt");
     while(getline(fin, line)){
         stringstream ss(line);
         string command;
