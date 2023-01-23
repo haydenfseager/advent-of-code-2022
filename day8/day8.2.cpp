@@ -59,13 +59,10 @@ int main(){
         }
         i++;
     }
-    int arr[99][99];
-    memset(arr, 0, sizeof(arr));
     int max_score = INT_MIN;
     for(int i=0; i<99; i++){
         for(int j=0; j<99; j++){
             int curr_score = findScore(i, j);
-            //cout << "Curr_score= " << curr_score << endl;
             if(curr_score > max_score){
                 max_score = curr_score;
             }
