@@ -19,12 +19,6 @@ struct Monkey{
         operation = '-';
         operationVal = "-";
     }
-    void setOperation(char o){
-        operation = o;
-    }
-    void setOperationVal(string v){
-        operationVal = v;
-    }
     int nextMonkeyVal(){
         if(operationVal == "old"){
             if(operation == '*'){
@@ -79,90 +73,61 @@ void run(){
     int i=8;
     while(i--){
         Monkey* m = new Monkey();
-        //Monkey 0:
-        getline(fin, line);
-        cout << line << endl;
+        getline(fin, line); //Monkey 0:
 
-        //Starting items: 59, 74, 65, 86
-        getline(fin, line);
-        cout << line << endl;
-
+        getline(fin, line); //Starting items: 59, 74, 65, 86
         stringstream ss(line);
         string d;
         string num;
         ss >> d >> d;
         while(getline(ss, num, ',')){
-            cout << "num= " << num << endl;
             m->items.push(stoi(num));
         }
         ss.str("");
         ss.clear();
-        getline(fin, line);
-        cout << line << endl;
+
+        getline(fin, line); //Operation: new = old * 19
         ss << line;
-        //Operation: new = old * 19
         string o;
         string opv;
         ss >> d >> d >> d >> d >> o >> opv;
-        cout << "o= " << o << endl;
-        cout << "opv= " << opv << endl;
         m->operation = o[0];
         m->operationVal = opv;
-        cout << "m.operation= " << m->operation << endl;
-        cout << "m.operationVal= " << m->operationVal << endl;
-        //Test: divisible by 7
-        getline(fin, line);
-        cout << line << endl;
         ss.str("");
         ss.clear();
-        ss << line;
-        ss >> d >> d >> d;
+
+        getline(fin, line); //Test: divisible by 7
         int db;
-        ss >> db;
-        cout << "db = " << db << endl;
+        ss << line;
+        ss >> d >> d >> d >> db;
         m->divisibleBy = db;
-        //If true: throw to monkey 6
-        getline(fin, line);
-        cout << line << endl;
         ss.str("");
         ss.clear();
-        ss << line;
-        ss >> d >> d >> d >> d >> d;
+
+        getline(fin, line); //If true: throw to monkey 6
         int trueVal, falseVal;
-        ss >> trueVal;
+        ss << line;
+        ss >> d >> d >> d >> d >> d >> trueVal;
         m->nextMonkeyVals.second = trueVal;
-        cout << "trueVal= " << trueVal;
-        //If false: throw to monkey 2
-        getline(fin, line);
-        cout << line << endl;
         ss.str("");
         ss.clear();
+
+        getline(fin, line); //If false: throw to monkey 2
         ss << line;
-        ss >> d >> d >> d >> d >> d;
-        ss >> falseVal;
+        ss >> d >> d >> d >> d >> d >> falseVal;
         m->nextMonkeyVals.first = falseVal;
-        cout << "falseVal= " << falseVal;
-        //newline
-        getline(fin, line);
-        cout << line << endl;
-        m->printMonkey();
+
+        getline(fin, line); //newline
+
+        //m->printMonkey(); //Use this for testing
         monkeys.push_back(*m);
     }
-    for(auto m: monkeys){
-        m.printMonkey();
-    }
-    //loop through every item each monkey has and get the next monkey val
-    //store the front of the list in a temp var and move it next monkey val
-    //pop the fron of the items queue
     for(int i=0; i<20; i++){
         for(int j=0; j<8; j++){
             while(!monkeys[j].items.empty()){
                 int toMonkey = monkeys[j].nextMonkeyVal();
-                cout << "toMonkey= " << toMonkey << endl;
-                int temp = monkeys[j].items.front();
-                cout << "temp= " << temp << endl;
+                monkeys[toMonkey].items.push(monkeys[j].items.front());
                 monkeys[j].items.pop();
-                monkeys[toMonkey].items.push(temp);
                 monkeys[j].numInspected++;
             }
         }
@@ -178,8 +143,7 @@ void run(){
             }
         }
     }
-    cout << "first= " << first << " " << "second= " << second << endl;
-    cout << first*second << endl;
+    cout << "Output= " << first*second << endl;
 }
 
 int main(){
