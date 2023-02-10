@@ -15,7 +15,7 @@ vector<pair<int, int>> dirs {
 vector<vector<char>> grid(rows, vector<char>(cols, '.'));
 
 void printGrid(){
-    for(int i=0; i<11; i++){
+    for(int i=0; i<15; i++){
         for(int j=cols/2 -10; j<cols/2 + 10; j++){
             cout << grid[i][j];
         }
@@ -26,9 +26,6 @@ void printGrid(){
 
 void addSand(pair<int, int> input){
     int i=0;
-    if(input.first > bottom){
-        return;
-    }
     for(auto [dy, dx]: dirs){
         pair<int, int> curr = input;
         curr.first += dy;
@@ -52,6 +49,10 @@ void findBottom(){
                 bottom = i;
             }
         }
+    }
+    bottom += 2;
+    for(int i=0; i<cols; i++){
+        grid[bottom][i] = '#';
     }
 }
 
@@ -101,7 +102,7 @@ int main(){
         }
     }
     findBottom();
-    int i=10000;
+    int i=1000000;
     while(i--){
         addSand(start);
     }
