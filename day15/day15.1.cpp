@@ -7,7 +7,6 @@ map<pair<int,int>,int> source_map;
 vector<vector<char>> grid(rows, vector<char>(cols, '.'));
 
 
-
 vector<pair<int, int>> dirs {
     {1,0},
     {-1,0},
