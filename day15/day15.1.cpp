@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int rows = 1e7, cols = 1e7;
+int rows = 1e5, cols = 1e5;
 vector<vector<char>> grid(rows, vector<char>(cols, '.'));
 map<pair<int,int>,int> source_map;
 
@@ -62,17 +62,17 @@ void printGrid(){
 }
 
 int main(){
+    int offset = 2000;
     ifstream fin;
     cout << "test" << endl;
-    fin.open("day15.txt");
+    fin.open("day15.test.txt");
     string line;
     string d;
     char c;
     string source_col, source_row, beacon_col, beacon_row;
     int scol, srow, bcol, brow;
     int i=1;
-    /*while(i--){
-        getline(fin,line);
+    while(getline(fin,line)){
         cout << line << endl;
         stringstream ss(line);
         ss >> d >> d >> source_col >> source_row;
@@ -89,10 +89,10 @@ int main(){
         cout << srow << endl;
         cout << bcol << endl;
         cout << brow << endl;
-        srow += 2000;
-        scol += 2000;
-        brow += 2000;
-        bcol += 2000;
+        srow += offset;
+        scol += offset;
+        brow += offset;
+        bcol += offset;
         grid[srow][scol] = 'S';
         grid[brow][bcol] = 'B';
         int dist = abs(srow - brow) + abs(scol - bcol);
@@ -103,8 +103,8 @@ int main(){
         printf("Key= %d,%d Val= %d\n", key.first, key.second, val);
         propagate(key, val);
     }
-    //printGrid();
-    count(2000000 + 2000);*/
+    int outputRow = 10;
+    count(outputRow + offset);
     fin.close();
 
     return 0;
