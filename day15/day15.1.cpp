@@ -2,10 +2,11 @@
 
 using namespace std;
 
-
-int rows = 1e5, cols = 1e5;
-vector<vector<char>> grid(rows, vector<char>(cols, '.'));
+int rows = 1e7, cols = 1e7;
 map<pair<int,int>,int> source_map;
+vector<vector<char>> grid(rows, vector<char>(cols, '.'));
+
+
 
 vector<pair<int, int>> dirs {
     {1,0},
@@ -65,7 +66,7 @@ int main(){
     int offset = 2000;
     ifstream fin;
     cout << "test" << endl;
-    fin.open("day15.test.txt");
+    fin.open("day15.txt");
     string line;
     string d;
     char c;
@@ -103,7 +104,7 @@ int main(){
         printf("Key= %d,%d Val= %d\n", key.first, key.second, val);
         propagate(key, val);
     }
-    int outputRow = 10;
+    int outputRow = 2000000;
     count(outputRow + offset);
     fin.close();
 
